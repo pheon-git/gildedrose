@@ -37,14 +37,14 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                if (!item.name.equals(AGED_BRIE)) {
-                    if (!item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                        decreaseQuality(item);
-                    } else {
-                        item.quality = 0;
-                    }
-                } else {
+                if (item.name.equals(AGED_BRIE)) {
                     increaseQuality(item);
+                } else {
+                    if (item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
+                        item.quality = 0;
+                    } else {
+                        decreaseQuality(item);
+                    }
                 }
             }
         }
