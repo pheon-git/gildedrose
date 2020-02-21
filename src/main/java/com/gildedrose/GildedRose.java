@@ -14,9 +14,7 @@ class GildedRose {
         for (Item item : items) {
             String name = item.name;
             if (name.equals(AGED_BRIE)) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+                increaseQuality(item);
             } else if (name.equals(BACKSTAGE_PASSES)) {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
@@ -55,15 +53,16 @@ class GildedRose {
         }
     }
 
+    private void increaseQuality(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+    }
+
     private void decreaseQuality(Item item) {
         if (!item.name.equals(SULFURAS)) {
             item.quality = item.quality - 1;
         }
     }
 
-    private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
-    }
 }
