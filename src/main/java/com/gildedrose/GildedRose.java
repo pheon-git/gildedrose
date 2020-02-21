@@ -12,22 +12,20 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            String name = item.name;
-            switch (name) {
-                case AGED_BRIE:
-                    new AgedBrie().invoke(item);
-                    break;
-                case BACKSTAGE_PASSES:
-                    new BackstagePasses().invoke(item);
-                    break;
-                case SULFURAS:
-                    new Sulfuras().invoke(item);
-                    break;
-                default:
-                    new GenericItem().invoke(item);
-                    break;
-            }
+            getGenericItem(item.name).invoke(item);
+        }
+    }
 
+    private GenericItem getGenericItem(String name) {
+        switch (name) {
+            case AGED_BRIE:
+                return new AgedBrie();
+            case BACKSTAGE_PASSES:
+                return new BackstagePasses();
+            case SULFURAS:
+                return new Sulfuras();
+            default:
+                return new GenericItem();
         }
     }
 
