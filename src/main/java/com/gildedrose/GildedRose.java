@@ -33,9 +33,7 @@ class GildedRose {
                 case SULFURAS:
                     break;
                 default:
-                    if (item.quality > 0) {
-                        item.quality = item.quality - 1;
-                    }
+                    decreaseQuality(item);
                     break;
             }
 
@@ -43,23 +41,25 @@ class GildedRose {
                 item.sellIn = item.sellIn - 1;
             }
 
-            if (item.sellIn < 0) {
-                switch (name) {
-                    case AGED_BRIE:
-                        increaseQuality(item);
-                        break;
-                    case BACKSTAGE_PASSES:
-                        item.quality = 0;
-                        break;
-                    case SULFURAS:
-                        break;
-                    default:
-                        if (item.quality > 0) {
-                            item.quality = item.quality - 1;
-                        }
-                        break;
-                }
+            switch (name) {
+                case AGED_BRIE:
+                    if (item.sellIn < 0) increaseQuality(item);
+                    break;
+                case BACKSTAGE_PASSES:
+                    if (item.sellIn < 0) item.quality = 0;
+                    break;
+                case SULFURAS:
+                    break;
+                default:
+                    if (item.sellIn < 0) decreaseQuality(item);
+                    break;
             }
+        }
+    }
+
+    private void decreaseQuality(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
         }
     }
 
