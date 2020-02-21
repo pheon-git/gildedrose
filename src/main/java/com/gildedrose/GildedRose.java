@@ -30,9 +30,11 @@ class GildedRose {
                         }
                     }
                     break;
+                case SULFURAS:
+                    break;
                 default:
                     if (item.quality > 0) {
-                        decreaseQuality(item);
+                        item.quality = item.quality - 1;
                     }
                     break;
             }
@@ -49,9 +51,11 @@ class GildedRose {
                     case BACKSTAGE_PASSES:
                         item.quality = 0;
                         break;
+                    case SULFURAS:
+                        break;
                     default:
                         if (item.quality > 0) {
-                            decreaseQuality(item);
+                            item.quality = item.quality - 1;
                         }
                         break;
                 }
@@ -62,12 +66,6 @@ class GildedRose {
     private void increaseQuality(Item item) {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
-        }
-    }
-
-    private void decreaseQuality(Item item) {
-        if (!item.name.equals(SULFURAS)) {
-            item.quality = item.quality - 1;
         }
     }
 
