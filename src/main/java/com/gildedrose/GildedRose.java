@@ -15,33 +15,16 @@ class GildedRose {
             String name = item.name;
             switch (name) {
                 case AGED_BRIE:
-                    increaseQuality(item);
-                    decreaseSellIn(item);
-                    if (item.sellIn < 0) {
-                        increaseQuality(item);
-                    }
+                    new AgedBrie().invoke(item);
                     break;
                 case BACKSTAGE_PASSES:
-                    increaseQuality(item);
-                    if (item.sellIn < 11) {
-                        increaseQuality(item);
-                    }
-                    if (item.sellIn < 6) {
-                        increaseQuality(item);
-                    }
-                    decreaseSellIn(item);
-                    if (item.sellIn < 0) {
-                        item.quality = 0;
-                    }
+                    new BackstagePasses().invoke(item);
                     break;
                 case SULFURAS:
+                    new Sulfuras().invoke(item);
                     break;
                 default:
-                    decreaseQuality(item);
-                    decreaseSellIn(item);
-                    if (item.sellIn < 0) {
-                        decreaseQuality(item);
-                    }
+                    new GenericItem().invoke(item);
                     break;
             }
 
@@ -58,10 +41,51 @@ class GildedRose {
         item.sellIn = item.sellIn - 1;
     }
 
-    private void decreaseQuality(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
+    private class GenericItem {
+        public void invoke(Item item) {
+            decreaseQuality(item);
+            decreaseSellIn(item);
+            if (item.sellIn < 0) {
+                decreaseQuality(item);
+            }
+        }
+
+        private void decreaseQuality(Item item) {
+            if (item.quality > 0) {
+                item.quality = item.quality - 1;
+            }
         }
     }
 
+    private class BackstagePasses extends GenericItem {
+        public void invoke(Item item) {
+            increaseQuality(item);
+            if (item.sellIn < 11) {
+                increaseQuality(item);
+            }
+            if (item.sellIn < 6) {
+                increaseQuality(item);
+            }
+            decreaseSellIn(item);
+            if (item.sellIn < 0) {
+                item.quality = 0;
+            }
+        }
+    }
+
+    private class AgedBrie extends GenericItem {
+        public void invoke(Item item) {
+            increaseQuality(item);
+            decreaseSellIn(item);
+            if (item.sellIn < 0) {
+                increaseQuality(item);
+            }
+        }
+    }
+
+    private class Sulfuras extends GenericItem{
+        public void invoke(Item item) {
+
+        }
+    }
 }
