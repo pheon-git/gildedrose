@@ -21,10 +21,7 @@ class GildedRose {
                     if (item.sellIn < 0) increaseQuality(item);
                     break;
                 case BACKSTAGE_PASSES:
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-
-                    }
+                    increaseQuality(item);
                     if (item.sellIn < 11) {
                         increaseQuality(item);
                     }
@@ -50,6 +47,13 @@ class GildedRose {
         }
     }
 
+    private void increaseQuality(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+
+        }
+    }
+
     private void decreaseSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
     }
@@ -57,12 +61,6 @@ class GildedRose {
     private void decreaseQuality(Item item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
-        }
-    }
-
-    private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
         }
     }
 
