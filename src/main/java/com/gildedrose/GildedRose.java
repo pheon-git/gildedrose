@@ -42,14 +42,18 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                if (name.equals(AGED_BRIE)) {
-                    increaseQuality(item);
-                } else if (name.equals(BACKSTAGE_PASSES)) {
-                    item.quality = 0;
-                } else {
-                    if (item.quality > 0) {
-                        decreaseQuality(item);
-                    }
+                switch (name) {
+                    case AGED_BRIE:
+                        increaseQuality(item);
+                        break;
+                    case BACKSTAGE_PASSES:
+                        item.quality = 0;
+                        break;
+                    default:
+                        if (item.quality > 0) {
+                            decreaseQuality(item);
+                        }
+                        break;
                 }
             }
         }
