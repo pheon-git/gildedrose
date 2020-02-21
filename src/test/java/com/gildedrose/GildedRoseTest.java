@@ -51,6 +51,20 @@ public class GildedRoseTest {
     }
 
     @Test
+    public void qualityDecreasesOverTimeForConjuredThings() {
+        Item item = new Item("foo", 2, 3);
+        Item conj = new Item("Conjured Mana Cake", 2, 3);
+        GildedRose gildedRose = new GildedRose(new Item[]{item, conj});
+
+        gildedRose.updateQuality();
+        assertEquals(2, item.quality);
+        assertEquals(1, conj.quality);
+        gildedRose.updateQuality();
+        assertEquals(1, item.quality);
+        assertEquals(0, conj.quality);
+    }
+
+    @Test
     public void sellInDecreasesEveryDayForMostItems() {
         sellInDecreasesEveryDayForItem(new Item("foo", 2, 0));
         sellInDecreasesEveryDayForItem(new Item("Backstage passes to a TAFKAL80ETC concert", 2, 0));

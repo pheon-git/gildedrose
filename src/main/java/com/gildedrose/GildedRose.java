@@ -24,6 +24,8 @@ class GildedRose {
                 return new BackstagePasses();
             case SULFURAS:
                 return new Sulfuras();
+            case "Conjured Mana Cake":
+                return new Conjured();
             default:
                 return new GenericItem();
         }
@@ -48,7 +50,7 @@ class GildedRose {
             }
         }
 
-        private void decreaseQuality(Item item) {
+        protected void decreaseQuality(Item item) {
             if (item.quality > 0) {
                 item.quality = item.quality - 1;
             }
@@ -84,6 +86,14 @@ class GildedRose {
     private class Sulfuras extends GenericItem{
         public void invoke(Item item) {
 
+        }
+    }
+
+    private class Conjured extends GenericItem {
+        @Override
+        protected void decreaseQuality(Item item) {
+            super.decreaseQuality(item);
+            super.decreaseQuality(item);
         }
     }
 }
