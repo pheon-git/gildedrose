@@ -17,6 +17,8 @@ class GildedRose {
                 case AGED_BRIE:
                     increaseQuality(item);
                     item.sellIn = item.sellIn - 1;
+
+                    if (item.sellIn < 0) increaseQuality(item);
                     break;
                 case BACKSTAGE_PASSES:
                     if (item.quality < 50) {
@@ -31,29 +33,20 @@ class GildedRose {
                         }
                     }
                     item.sellIn = item.sellIn - 1;
+
+                    if (item.sellIn < 0) item.quality = 0;
                     break;
                 case SULFURAS:
+
                     break;
                 default:
                     decreaseQuality(item);
                     item.sellIn = item.sellIn - 1;
-                    break;
-            }
 
-
-            switch (name) {
-                case AGED_BRIE:
-                    if (item.sellIn < 0) increaseQuality(item);
-                    break;
-                case BACKSTAGE_PASSES:
-                    if (item.sellIn < 0) item.quality = 0;
-                    break;
-                case SULFURAS:
-                    break;
-                default:
                     if (item.sellIn < 0) decreaseQuality(item);
                     break;
             }
+
         }
     }
 
